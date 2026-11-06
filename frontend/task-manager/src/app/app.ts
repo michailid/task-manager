@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TaskList } from './components/taskList/taskList';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TaskList],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

@@ -1,0 +1,14 @@
+<div class="main-container">
+  <h1>Task Manager</h1>
+  <input type="text" class="task-input" [(ngModel)]="taskToAdd" />
+  <button class="add-task-btn" (click)="addTask(taskToAdd)">Add</button>
+
+  <div class="task-list">
+    @for (task of tasks(); track $index) {
+      <div class="task">
+        <div class="task-title">{{ task.title }}</div>
+        <button class="delete-task-btn">Delete</button>
+      </div>
+    }
+  </div>
+</div>
