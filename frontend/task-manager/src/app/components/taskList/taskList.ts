@@ -16,10 +16,10 @@ export class TaskList implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.getAllTasks();
+    this.loadTasks();
   }
 
-  getAllTasks() {
+  loadTasks() {
     this.taskService.getAllTasks().subscribe({
       next: (res: any) => {
         this.tasks.set(res);
@@ -31,13 +31,28 @@ export class TaskList implements OnInit {
   }
 
   addTask(taskTitle: string) {
-    this.taskToAdd = '';
-    this.taskService.addNewTask(taskTitle).subscribe({
-      next: () => {},
+    if (taskTitle.trim() !== '') {
+      const task = { title: taskTitle };
+      this.taskService.addTask(task).subscribe({
+        next: () => {
+          this.taskToAdd = '';
+          this.loadTasks();
+        },
+        error: (error) => {
+          alert('Error:' + error);
+        },
+      });
+    }
+  }
+
+  deleteTask(taskId: number) {
+    this.taskService.deleteTask(taskId).subscribe({
+      next: () => {
+        this.loadTasks();
+      },
       error: (error) => {
-        alert('Error:' + error);
+        alert('Error: ' + error);
       },
     });
-    this.getAllTasks();
   }
 }

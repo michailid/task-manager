@@ -12,7 +12,11 @@ export class TaskService {
     return this.http.get<Task[]>(this.API_URL);
   }
 
-  addNewTask(taskTitle: string): Observable<Task> {
-    return this.http.post<Task>(this.API_URL, { title: taskTitle });
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.API_URL, task);
+  }
+
+  deleteTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
 }
