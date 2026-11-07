@@ -1,14 +1,37 @@
-<div class="main-container">
-  <h1>Task Manager</h1>
-  <input type="text" class="task-input" [(ngModel)]="taskToAdd" placeholder="Type task..." />
-  <button class="add-task-btn" (click)="addTask(taskToAdd)">Add</button>
+<main class="card">
+  <h1 class="title">📝 Task Manager</h1>
 
-  <div class="task-list">
-    @for (task of tasks(); track $index) {
-      <div class="task">
-        <div class="task-title">{{ task.title }}</div>
-        <button class="delete-task-btn" (click)="deleteTask(task.id!)">Delete</button>
-      </div>
-    }
+  <div class="task-form">
+    <input
+      class="task-input"
+      type="text"
+      [(ngModel)]="taskToAdd"
+      placeholder="Enter task..."
+      aria-label="Task"
+    />
+    <button class="btn btn-add" type="button" (click)="addTask(taskToAdd)">Add Task</button>
   </div>
-</div>
+
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th class="col-index">#</th>
+        <th>Task</th>
+        <th class="col-actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (task of tasks(); track $index) {
+        <tr>
+          <td class="col-index">{{ $index + 1 }}</td>
+          <td>{{ task.title }}</td>
+          <td class="col-actions">
+            <button class="btn btn-delete" type="button" (click)="deleteTask(task.id!)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</main>
